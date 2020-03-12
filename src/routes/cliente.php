@@ -34,3 +34,23 @@ $app->get('/api/clientes', function(Request $request, Response $response){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+
+$app->get('/api/clientes/{id}', function(Request $request, Response $response){
+    $id = $request->getAttribute('id');
+
+    $sql = "SELECT * FROM CLIENTE WHERE Cedula_cliente = $id";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $clientes = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($clientes);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
