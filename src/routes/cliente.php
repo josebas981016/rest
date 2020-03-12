@@ -18,7 +18,7 @@ $app->add(function ($req, $res, $next) {
 
 // Get All Customers
 $app->get('/api/clientes', function(Request $request, Response $response){
-    $sql = "SELECT * FROM clientes";
+    $sql = "SELECT * FROM CLIENTE";
 
     try{
         // Get DB Object
@@ -27,9 +27,9 @@ $app->get('/api/clientes', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $customers = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $cliente = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($customers);
+        echo json_encode($cliente);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
